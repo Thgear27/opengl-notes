@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <cmath>
 
 void processInput(GLFWwindow* window);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -61,24 +62,29 @@ int main() {
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
   // 2.- Le decimos a OpenGL como tiene que interpretar la información
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-  glEnableVertexAttribArray(0);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+  glEnableVertexAttribArray(1);
 
   glBindVertexArray(0);
 
   // 3.- Crear los shaders
-  const char* vertexShaderSource = "#version 330 core\n"
-                                   "layout (location = 0) in vec3 aPos;\n"
+  const char* vertexShaderSource = "#version 400 core\n"
+                                   "layout (location = 1) in vec3 aPos;\n"
+                                   "out float variable;\n"
+                                   "uniform float mivariable2;\n"
                                    "void main()\n"
                                    "{\n"
-                                   "gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+                                   "variable = 0.0f;\n"
+                                   "gl_Position = vec4(aPos.x + mivariable2, aPos.y, aPos.z, 1.0);\n"
                                    "}\n";
 
-  const char* fragmentShaderSource = "#version 330 core\n"
+  const char* fragmentShaderSource = "#version 400 core\n"
                                      "out vec4 FragColor;\n"
+                                     "in float variable;\n"
+                                    "uniform float mivariable2;\n"
                                      "void main()\n"
                                      "{\n"
-                                     "FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+                                     "FragColor = vec4(mivariable2, 0.5f, 0.2f, 1.0f);\n"
                                      "}\n";
 
   unsigned int vertexShader;
@@ -132,11 +138,15 @@ int main() {
   // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   glUseProgram(shaderProgram);
+  int location = glGetUniformLocation(shaderProgram, "mivariable2");
   while (!glfwWindowShouldClose(window)) {
     processInput(window);
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+
+    float time = glfwGetTime();
+    glUniform1f(location, std::abs(std::sin(time)));
 
     glBindVertexArray(vao);
     // glDrawArrays(GL_TRIANGLES, 0, 6);
