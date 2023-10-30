@@ -5,14 +5,17 @@
 #include <string>
 
 class ShaderProgram {
-  public:
+  private:
   GLuint programId = 0;
+
+  public:
   std::string vertexShaderSource;
   std::string fragmentShaderSource;
 
   void use();
   void deleteprogram();
   void setFloat(const std::string& name, float value);
+
   GLuint Id();
   ShaderProgram(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
   ~ShaderProgram();

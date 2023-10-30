@@ -2,8 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <cmath>
-#include "OpenGL/ElementBuffer.hpp"
 #include "OpenGL/ShaderProgram.hpp"
+#include "OpenGL/ElementBuffer.hpp"
 #include "OpenGL/VertexArray.hpp"
 #include "OpenGL/VertexBuffer.hpp"
 

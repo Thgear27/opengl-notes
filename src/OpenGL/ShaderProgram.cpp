@@ -73,8 +73,10 @@ ShaderProgram::~ShaderProgram() {
 void ShaderProgram::use() { glUseProgram(programId); }
 
 void ShaderProgram::deleteprogram() {
-  if (programId != 0) glDeleteProgram(programId);
-  programId = 0;
+  if (programId != 0) {
+    glDeleteProgram(programId);
+    programId = 0;
+  }
 }
 
 void ShaderProgram::setFloat(const std::string& name, float value) {
