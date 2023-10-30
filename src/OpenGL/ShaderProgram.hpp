@@ -5,6 +5,7 @@
 #include <string>
 
 class ShaderProgram {
+  public:
   GLuint programId = 0;
   std::string vertexShaderSource;
   std::string fragmentShaderSource;
