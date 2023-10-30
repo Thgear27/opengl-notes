@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 #include <string>
 
-struct ShaderProgram {
+class ShaderProgram {
   GLuint programId = 0;
   std::string vertexShaderSource;
   std::string fragmentShaderSource;
