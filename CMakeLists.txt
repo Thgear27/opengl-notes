@@ -9,9 +9,6 @@ file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c" "src/*.h" "src/*.hpp" "src/OpenG
 
 
 add_executable(Openglnotes ${SOURCES})
-# add_executable(Openglnotes
-#               src/glad.c
-#               src/main.cpp)
 
 add_custom_target(copy_resources ALL
         COMMAND ${CMAKE_COMMAND} -E copy_directory
@@ -24,3 +21,10 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 target_include_directories(Openglnotes PUBLIC "${PROJECT_SOURCE_DIR}/include")
 target_link_libraries(Openglnotes glfw)
+
+add_custom_target(run
+        COMMAND Openglnotes
+        DEPENDS Openglnotes
+        WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
+        COMMENT "Running Openglnotes"
+        VERBATIM)
