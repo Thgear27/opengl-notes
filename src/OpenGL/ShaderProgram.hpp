@@ -15,6 +15,7 @@ class ShaderProgram {
   void use();
   void deleteprogram();
   void setFloat(const std::string& name, float value);
+  void setInt(const std::string& name, int value);
 
   GLuint Id();
   ShaderProgram(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);

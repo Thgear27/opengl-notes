@@ -2,6 +2,15 @@
 
 out vec4 FragColor;
 
-uniform float mivariable2;
+in vec3 vColor;
+in vec2 vTexCoord;
 
-void main() { FragColor = vec4(mivariable2, 0.5f, 0.2f, 1.0f); }
+uniform float mivariable2;
+uniform sampler2D texture1;
+uniform sampler2D texture2;
+
+void main() {
+  // FragColor = vec4(mivariable2, 0.5, 0.2, 1.0);
+  FragColor = mix(texture(texture1, vTexCoord), texture(texture2, vTexCoord), mivariable2);
+  // FragColor = texture(texture2, vTexCoord);
+}
